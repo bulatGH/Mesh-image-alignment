@@ -120,7 +120,7 @@ bool Point3D_F::operator==(const Point3D_F& tpoint)
 double Point3D_F::Distance(const Point3D_F& tpoint1, const Point3D_F& tpoint2)
 {
 	return std::sqrt((tpoint1.x - tpoint2.x) * (tpoint1.x - tpoint2.x) + 
-					 (tpoint1.y - tpoint2.y) * (tpoint1.y - tpoint2.y) + 
+			 		 (tpoint1.y - tpoint2.y) * (tpoint1.y - tpoint2.y) + 
 					 (tpoint1.z - tpoint2.z) * (tpoint1.z - tpoint2.z));
 }
 
@@ -157,8 +157,8 @@ double** Point3D_F::RotationYawPitchRoll(float dx, float dz, float dy)
 double Point3D_F::ComputeDeterminant3_3(double** tmatr)
 {
 	return tmatr[0][0] * (tmatr[1][1] * tmatr[2][2] - tmatr[1][2] * tmatr[2][1]) - 
-		   tmatr[0][1] * (tmatr[1][0] * tmatr[2][2] - tmatr[1][2] * tmatr[2][0]) +
-		   tmatr[0][2] * (tmatr[1][0] * tmatr[2][1] - tmatr[1][1] * tmatr[2][0]);
+	       tmatr[0][1] * (tmatr[1][0] * tmatr[2][2] - tmatr[1][2] * tmatr[2][0]) +
+	       tmatr[0][2] * (tmatr[1][0] * tmatr[2][1] - tmatr[1][1] * tmatr[2][0]);
 }
 
 double Point3D_F::Dot(Point3D_F& tpoint1, Point3D_F& tpoint2)
@@ -238,9 +238,9 @@ bool Point4D_F::operator==(const Point4D_F& tpoint)
 double Point4D_F::Distance(const Point4D_F& tpoint1, const Point4D_F& tpoint2)
 {
 	return std::sqrt((tpoint1.x - tpoint2.x) * (tpoint1.x - tpoint2.x) + 
-					 (tpoint1.y - tpoint2.y) * (tpoint1.y - tpoint2.y) + 
-					 (tpoint1.z - tpoint2.z) * (tpoint1.z - tpoint2.z) + 
-					 (tpoint1.w - tpoint2.w) * (tpoint1.w - tpoint2.w));
+			 		 (tpoint1.y - tpoint2.y) * (tpoint1.y - tpoint2.y) + 
+			 		 (tpoint1.z - tpoint2.z) * (tpoint1.z - tpoint2.z) + 
+			 		 (tpoint1.w - tpoint2.w) * (tpoint1.w - tpoint2.w));
 }
 
 
@@ -260,7 +260,7 @@ Images2D_S::~Images2D_S()
 
 Images2D_S::Images2D_S(byte* tbytes, int tstartByte, int tsize_x, int tsize_y)
 {
-	size[0] = tsize_x;
+    size[0] = tsize_x;
     size[1] = tsize_y;
     image = new short[tsize_x * tsize_y];
     for (int i = 0; i < tsize_x * tsize_y; i++)
@@ -305,9 +305,9 @@ bool Images2D_S::InsideImage(int x, int y)
 
 void Images2D_S::Save(ofstream& tbw)
 {
-	for (int i = 0; i < size[0] * size[1]; i++)
+    for (int i = 0; i < size[0] * size[1]; i++)
     {
-		tbw.write((char * )&image[i], sizeof(short));
+	tbw.write((char * )&image[i], sizeof(short));
         //tbw << image[i];
     }
 }
@@ -331,14 +331,8 @@ void Images2D_S::Draw(const char* tfileName)
 	int tsizeY = (int)(4 * ceil((1.0 * this->Size[1] / 4)));
 	short tmin = 0;
 	short tmax = 0;
-	this->GetMaxValue(tmax);
-	this->GetMinValue(tmin);
-	//tmin = 0;
-	//tmin = tmin > 0 ? 0 : tmin;
-	//tmax = 260;
-	//tmin = 20;
-	//tmax += 5;
-	//tmin -= 5;
+	GetMaxValue(tmax);
+	GetMinValue(tmin);
 	BYTE* buf = new BYTE[ tsizeX * 4 * tsizeY ];
 	int c = 0;
   
@@ -511,7 +505,6 @@ void Images2D_F::Save(ofstream& tbw)
 	for (int i = 0; i < size[0] * size[1]; i++)
     {
 		tbw.write((char * )&image[i], sizeof(float));
-        //tbw << image[i];
     }
 }
 
@@ -526,16 +519,6 @@ void Images2D_F::Print(const char* tfileName)
         tbw.write((char * )&image[i], sizeof(float));
     }
 	tbw.close();
-
-	/*ofstream tbw;
-	tbw.open(tfileName, ios::binary);
-	tbw << size[0];
-	tbw << size[1];
-	for (int i = 0; i < size[0] * size[1]; i++)
-    {
-        tbw << image[i];
-    }
-	tbw.close();*/
 }
 
 void Images2D_F::Draw(const char* tfileName)
@@ -1601,11 +1584,6 @@ void GradientImage_2D::SetGradient(int x, int y, float tdx, float tdy, float tdz
 	gradients[tind][1] = tdy / tdist;
 	gradients[tind][2] = tdz / tdist;
 	gradients[tind][3] = tdist;
-
-	//printf ("%f %f %f \n", gradients[tind][0], gradients[tind][1], gradients[tind][2]);
-	//printf ("%f \n", tdist);
-	//std::getchar();
-
 }
 
 void GradientImage_2D::SetGradientDecomposed(int x, int y, float tdx, float tdy, float tdz)
@@ -1640,10 +1618,8 @@ GradientImage_3D::GradientImage_3D(int tsizex, int tsizey, int tsizez)
     size[0] = tsizex;
     size[1] = tsizey;
     size[2] = tsizez;
-	//gradients = std::vector<shared_ptr<GradientImage_2D>>(size[2], std::make_shared<GradientImage_2D>(size[0], size[1]));
     for (int k = 0; k < size[2]; k++)
     {
-		//shared_ptr<GradientImage_2D> gradients2(new GradientImage_2D(size[0], size[1]));
 		gradients.push_back(std::make_shared<GradientImage_2D>(size[0], size[1]));
 	}
 }
