@@ -13,9 +13,9 @@ shared_ptr<GradientImage_3D> GradientFiltering::GradientImage(shared_ptr<Images3
         {
             for (int j = 1; j < timage->Size[1] - 1; j++)
             {
-                tresultImage->SetGradient(i, j, k, 0.5f * (timage->gV(i + 1, j,		k)	   - timage->gV(i - 1, j,	  k)),
-                                                   0.5f * (timage->gV(i,	 j + 1, k)	   - timage->gV(i,	   j - 1, k)),
-                                                   0.5f * (timage->gV(i,	 j,		k + 1) - timage->gV(i,     j,	  k - 1)));
+                tresultImage->SetGradient(i, j, k, 0.5f * (timage->gV(i + 1, j,	k) - timage->gV(i - 1, j, k)),
+                                                   0.5f * (timage->gV(i, j + 1, k) - timage->gV(i, j - 1, k)),
+                                                   0.5f * (timage->gV(i, j, k + 1) - timage->gV(i, j, k - 1)));
             }
         }
     });
@@ -26,13 +26,13 @@ shared_ptr<GradientImage_3D> GradientFiltering::GradientImage(shared_ptr<Images3
         for (int j = 1; j < timage->Size[1] - 1; j++)
         {
             tresultImage->SetGradient(i, j, 0,
-                                      0.5f * (timage->gV(i + 1, j,	   0) - timage->gV(i - 1, j,	 0)),
-                                      0.5f * (timage->gV(i,		j + 1, 0) - timage->gV(i,	  j - 1, 0)),
-											  timage->gV(i,		j,	   1) - timage->gV(i,	  j,	 0));
+                                      0.5f * (timage->gV(i + 1, j, 0) - timage->gV(i - 1, j, 0)),
+                                      0.5f * (timage->gV(i, j + 1, 0) - timage->gV(i, j - 1, 0)),
+					      timage->gV(i, j, 1) - timage->gV(i, j, 0));
             tresultImage->SetGradient(i, j, timage->Size[2] - 1,
-                                      0.5f * (timage->gV(i + 1, j,	   timage->Size[2] - 1) - timage->gV(i - 1, j,	   timage->Size[2] - 1)),
-                                      0.5f * (timage->gV(i,		j + 1, timage->Size[2] - 1) - timage->gV(i,		j - 1, timage->Size[2] - 1)),
-											  timage->gV(i,		j,	   timage->Size[2] - 1) - timage->gV(i,		j,	   timage->Size[2] - 2));
+                                      0.5f * (timage->gV(i + 1, j, timage->Size[2] - 1) - timage->gV(i - 1, j, timage->Size[2] - 1)),
+                                      0.5f * (timage->gV(i, j + 1, timage->Size[2] - 1) - timage->gV(i,	j - 1, timage->Size[2] - 1)),
+					      timage->gV(i, j, timage->Size[2] - 1) - timage->gV(i, j, timage->Size[2] - 2));
         }
     }
     for (int i = 1; i < timage->Size[0] - 1; i++)
@@ -40,13 +40,13 @@ shared_ptr<GradientImage_3D> GradientFiltering::GradientImage(shared_ptr<Images3
         for (int k = 1; k < timage->Size[2] - 1; k++)
         {
             tresultImage->SetGradient(i, 0, k,
-                                      0.5f * (timage->gV(i + 1, 0, k)	  - timage->gV(i - 1, 0, k)),
-											  timage->gV(i,		1, k)	  - timage->gV(i,	  0, k),
-                                      0.5f * (timage->gV(i,		0, k + 1) - timage->gV(i,	  0, k - 1)));
+                                      0.5f * (timage->gV(i + 1, 0, k) - timage->gV(i - 1, 0, k)),
+					      timage->gV(i, 1, k) - timage->gV(i, 0, k),
+                                      0.5f * (timage->gV(i, 0, k + 1) - timage->gV(i, 0, k - 1)));
             tresultImage->SetGradient(i, timage->Size[1] - 1, k,
-                                      0.5f * (timage->gV(i + 1, timage->Size[1] - 1, k)		- timage->gV(i - 1, timage->Size[1] - 1, k)),
-											  timage->gV(i,		timage->Size[1] - 1, k)		- timage->gV(i,		timage->Size[1] - 2, k),
-                                      0.5f * (timage->gV(i,		timage->Size[1] - 1, k + 1) - timage->gV(i,		timage->Size[1] - 1, k - 1)));
+                                      0.5f * (timage->gV(i + 1, timage->Size[1] - 1, k)	- timage->gV(i - 1, timage->Size[1] - 1, k)),
+					      timage->gV(i, timage->Size[1] - 1, k) - timage->gV(i, timage->Size[1] - 2, k),
+                                      0.5f * (timage->gV(i, timage->Size[1] - 1, k + 1) - timage->gV(i, timage->Size[1] - 1, k - 1)));
         }
     }
     for (int j = 1; j < timage->Size[1] - 1; j++)
@@ -54,13 +54,13 @@ shared_ptr<GradientImage_3D> GradientFiltering::GradientImage(shared_ptr<Images3
         for (int k = 1; k < timage->Size[2] - 1; k++)
         {
             tresultImage->SetGradient(0, j, k,
-											  timage->gV(1, j,	   k)	  - timage->gV(0, j,	 k),
-                                      0.5f * (timage->gV(0, j + 1, k)	  - timage->gV(0, j - 1, k)),
-                                      0.5f * (timage->gV(0, j,	   k + 1) - timage->gV(0, j,	 k - 1)));
+					      timage->gV(1, j, k) - timage->gV(0, j, k),
+                                      0.5f * (timage->gV(0, j + 1, k) - timage->gV(0, j - 1, k)),
+                                      0.5f * (timage->gV(0, j, k + 1) - timage->gV(0, j, k - 1)));
             tresultImage->SetGradient(timage->Size[0] - 1, j, k,
-											  timage->gV(timage->Size[0] - 1, j,	 k)		- timage->gV(timage->Size[0] - 2, j,	 k),
-                                      0.5f * (timage->gV(timage->Size[0] - 1, j + 1, k)		- timage->gV(timage->Size[0] - 1, j - 1, k)),
-                                      0.5f * (timage->gV(timage->Size[0] - 1, j,	 k + 1) - timage->gV(timage->Size[0] - 1, j,	 k - 1)));
+					      timage->gV(timage->Size[0] - 1, j, k) - timage->gV(timage->Size[0] - 2, j, k),
+                                      0.5f * (timage->gV(timage->Size[0] - 1, j + 1, k)	- timage->gV(timage->Size[0] - 1, j - 1, k)),
+                                      0.5f * (timage->gV(timage->Size[0] - 1, j, k + 1) - timage->gV(timage->Size[0] - 1, j, k - 1)));
         }
     }
 
@@ -79,14 +79,13 @@ shared_ptr<GradientImage_3D> GradientFiltering::GradientImage(shared_ptr<Images3
             {
 				if (tmask->gV(i, j, k) > 0)
                 {
-					tresultImage->SetGradient(i, j, k, 0.5f * (timage->gV(i + 1, j,		k)	   - timage->gV(i - 1, j,	  k)),
-													   0.5f * (timage->gV(i,	 j + 1, k)	   - timage->gV(i,	   j - 1, k)),
-													   0.5f * (timage->gV(i,	 j,		k + 1) - timage->gV(i,	   j,	  k - 1)));
+					tresultImage->SetGradient(i, j, k, 0.5f * (timage->gV(i + 1, j,	k) - timage->gV(i - 1, j, k)),
+													   0.5f * (timage->gV(i, j + 1, k) - timage->gV(i, j - 1, k)),
+													   0.5f * (timage->gV(i, j, k + 1) - timage->gV(i, j, k - 1)));
 				}
             }
         }
     });
-
 
     for (int i = 1; i < timage->Size[0] - 1; i++)
     {
@@ -95,16 +94,16 @@ shared_ptr<GradientImage_3D> GradientFiltering::GradientImage(shared_ptr<Images3
 			if (tmask->gV(i, j, 0) > 0)
             {
 				tresultImage->SetGradient(i, j, 0,
-										  0.5f * (timage->gV(i + 1, j,	   0) - timage->gV(i - 1, j,	 0)),
-										  0.5f * (timage->gV(i,		j + 1, 0) - timage->gV(i,	  j - 1, 0)),
-												  timage->gV(i,		j,	   1) - timage->gV(i,	  j,	 0));
+										  0.5f * (timage->gV(i + 1, j, 0) - timage->gV(i - 1, j, 0)),
+										  0.5f * (timage->gV(i, j + 1, 0) - timage->gV(i, j - 1, 0)),
+												  timage->gV(i, j, 1) - timage->gV(i, j, 0));
 			}
 			if (tmask->gV(i, j, timage->Size[2] - 1) > 0)
             {
 				tresultImage->SetGradient(i, j, timage->Size[2] - 1,
-										  0.5f * (timage->gV(i + 1, j,	   timage->Size[2] - 1) - timage->gV(i - 1, j,	   timage->Size[2] - 1)),
-										  0.5f * (timage->gV(i,		j + 1, timage->Size[2] - 1) - timage->gV(i,		j - 1, timage->Size[2] - 1)),
-												  timage->gV(i,		j,	   timage->Size[2] - 1) - timage->gV(i,		j,	   timage->Size[2] - 2));
+										  0.5f * (timage->gV(i + 1, j, timage->Size[2] - 1) - timage->gV(i - 1, j, timage->Size[2] - 1)),
+										  0.5f * (timage->gV(i, j + 1, timage->Size[2] - 1) - timage->gV(i, j - 1, timage->Size[2] - 1)),
+												  timage->gV(i, j, timage->Size[2] - 1) - timage->gV(i, j, timage->Size[2] - 2));
 			}
         }
     }
@@ -115,16 +114,16 @@ shared_ptr<GradientImage_3D> GradientFiltering::GradientImage(shared_ptr<Images3
 			if (tmask->gV(i, 0, k) > 0)
             {
 				tresultImage->SetGradient(i, 0, k,
-										  0.5f * (timage->gV(i + 1, 0, k)	  - timage->gV(i - 1, 0, k)),
-												  timage->gV(i,		1, k)	  - timage->gV(i,	  0, k),
-										  0.5f * (timage->gV(i,		0, k + 1) - timage->gV(i,	  0, k - 1)));
+										  0.5f * (timage->gV(i + 1, 0, k) - timage->gV(i - 1, 0, k)),
+												  timage->gV(i, 1, k) - timage->gV(i, 0, k),
+										  0.5f * (timage->gV(i, 0, k + 1) - timage->gV(i, 0, k - 1)));
 			}
 			if (tmask->gV(i, timage->Size[1] - 1, k) > 0)
             {
 				tresultImage->SetGradient(i, timage->Size[1] - 1, k,
-										  0.5f * (timage->gV(i + 1, timage->Size[1] - 1, k)		- timage->gV(i - 1, timage->Size[1] - 1, k)),
-												  timage->gV(i,		timage->Size[1] - 1, k)		- timage->gV(i,		timage->Size[1] - 2, k),
-										  0.5f * (timage->gV(i,		timage->Size[1] - 1, k + 1) - timage->gV(i,		timage->Size[1] - 1, k - 1)));
+										  0.5f * (timage->gV(i + 1, timage->Size[1] - 1, k) - timage->gV(i - 1, timage->Size[1] - 1, k)),
+												  timage->gV(i, timage->Size[1] - 1, k) - timage->gV(i, timage->Size[1] - 2, k),
+										  0.5f * (timage->gV(i, timage->Size[1] - 1, k + 1) - timage->gV(i, timage->Size[1] - 1, k - 1)));
 			}
         }
     }
@@ -135,16 +134,16 @@ shared_ptr<GradientImage_3D> GradientFiltering::GradientImage(shared_ptr<Images3
 			if (tmask->gV(0, j, k) > 0)
             {
 				tresultImage->SetGradient(0, j, k,
-												  timage->gV(1, j,	   k)	  - timage->gV(0, j,	 k),
-										  0.5f * (timage->gV(0, j + 1, k)	  - timage->gV(0, j - 1, k)),
-										  0.5f * (timage->gV(0, j,	   k + 1) - timage->gV(0, j,	 k - 1)));
+												  timage->gV(1, j, k) - timage->gV(0, j, k),
+										  0.5f * (timage->gV(0, j + 1, k) - timage->gV(0, j - 1, k)),
+										  0.5f * (timage->gV(0, j, k + 1) - timage->gV(0, j, k - 1)));
 			}
 			if (tmask->gV(timage->Size[0] - 1, j, k) > 0)
             {
 				tresultImage->SetGradient(timage->Size[0] - 1, j, k,
-												  timage->gV(timage->Size[0] - 1, j,	 k)		- timage->gV(timage->Size[0] - 2, j,	 k),
-										  0.5f * (timage->gV(timage->Size[0] - 1, j + 1, k)		- timage->gV(timage->Size[0] - 1, j - 1, k)),
-										  0.5f * (timage->gV(timage->Size[0] - 1, j,	 k + 1) - timage->gV(timage->Size[0] - 1, j,	 k - 1)));
+												  timage->gV(timage->Size[0] - 1, j, k) - timage->gV(timage->Size[0] - 2, j, k),
+										  0.5f * (timage->gV(timage->Size[0] - 1, j + 1, k) - timage->gV(timage->Size[0] - 1, j - 1, k)),
+										  0.5f * (timage->gV(timage->Size[0] - 1, j, k + 1) - timage->gV(timage->Size[0] - 1, j, k - 1)));
 			}
         }
     }
@@ -197,7 +196,7 @@ shared_ptr<Images3D_S> ImageRescaling::RescaleISO(shared_ptr<sImages3D_S> timage
             for (int k = 0; k < tsizeZ; k++)
             {
 				float tval = InterpolateValues((i + 0.5) / tscalex, (j + 0.5) / tscaley, (k + 0.5) / tscalez,
-                                                         tsizeX, tsizeY, tsizeZ, timage);
+                                               tsizeX, tsizeY, tsizeZ, timage);
 				tresImage->sV(i, j, k, tval);
             }
         }
@@ -261,12 +260,12 @@ short ImageRescaling::InterpolateValues(double x, double y, double z, double tsc
 
 
 shared_ptr<sImages3D_S> ReadStraightforwardly::ReadOneImage(std::string tfileName,
-												   int tsize_x,     int tsize_y,	 int tsize_z,
-												   float tscale_x,  float tscale_y,  float tscale_z,
-												   float torigin_x, float torigin_y, float torigin_z)
+												   			int tsize_x, int tsize_y,int tsize_z,
+												   			float tscale_x, float tscale_y, float tscale_z,
+												   			float torigin_x, float torigin_y, float torigin_z)
 {
-    shared_ptr<sImages3D_S> tImage(new sImages3D_S(tsize_y,   tsize_x,   tsize_z,
-												   tscale_y,  tscale_x,  tscale_z,
+    shared_ptr<sImages3D_S> tImage(new sImages3D_S(tsize_y, tsize_x, tsize_z,
+												   tscale_y, tscale_x, tscale_z,
 												   torigin_y, torigin_x, torigin_z));
 	ifstream tbr; 
     tbr.open(tfileName, ios::in | ios::binary);
