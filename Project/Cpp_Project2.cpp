@@ -83,7 +83,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	clock_t time2 = clock();
 	double tval = double(time2 - time1) / CLOCKS_PER_SEC;
 	std::cout << tval << '\n';
-
 	std::cin >> tval;
 	return 0;
 }
