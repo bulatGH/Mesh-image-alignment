@@ -62,7 +62,6 @@ void DentalCasts_Test()
 			break;
 		}
 	}
-	
 
 	DWORD elapsed = GetTickCount() - start;
 	printf ("It took (%f seconds) to register mesh.\n",((float)elapsed)/CLOCKS_PER_SEC);
